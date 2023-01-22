@@ -1,7 +1,7 @@
  const postsContainer = document.getElementById('posts-container');
  const loader = document.querySelector('.loader');
 
- let limit = 3;
+ let limit = 5;
  let page = 1;
 
  //fetch post from api
@@ -36,6 +36,26 @@
 
    
  }
+ //show loading
+ function showLoading(){
+   showLoading.classList.add('show');
+
+   setTimeout(()=>{
+      showLoading.classList.remove('show')
+
+      setTimeout(()=>{
+         page++;
+         showPosts()
+      })
+   },1000)
+ }
 
  //show posts
  showPosts();
+
+ window.addEventListener('scroll', () => {
+   const {scrollHeight, scrollTop, clientHeight} = document.documentElement;
+   if (scrollTop + clientHeight >= scrollHeight){
+      showLoading()
+   }
+ })
